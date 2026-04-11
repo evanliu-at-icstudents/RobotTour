@@ -17,12 +17,12 @@ Romi32U4Buzzer buzzer;
 // Control / robot constants (EDIT HERE)
 // ---------------------------
 const unsigned long LOOP_DT_MS = 10;      // ignore
-const float DESIRED_TIME = 10.0f;         // Desired time to reach end
+const float DESIRED_TIME = 73.0f;         // Desired time to reach end
 
 const float TRACK_WIDTH         = 14.1f;  // ignore: robot is already tuned
 const float MIN_REM             = 0.1f;   // ignore: robot is already tuned
 const float MAX_W_RAD_S         = 2.0f;   // ignore: robot is already tuned
-const float LOOKAHEAD_CM        = 20.0f;  // Control of how tight turns are
+const float LOOKAHEAD_CM        = 15.0f;  // Control of how tight turns are
 
 const float END_TOLERANCE_X_CM  = 0.25f;  // ignore
 const float END_TOLERANCE_Y_CM  = 0.25f;  // ignore
@@ -31,7 +31,7 @@ const float MIN_TIME_LEFT_S     = 0.20f;  // ignore
 const float MIN_FORWARD_CM_S    = 2.0f;   // ignore: robot is already tuned
 const float MAX_FORWARD_CM_S    = 30.0f;  // ignore: robot is already tuned
 
-const float CORNER_RADIUS = 12.5f;        // Radius of turns
+const float CORNER_RADIUS = 7.5f;        // Radius of turns
 const int   ARC_SEGMENTS  = 6;            // ignore
 
 bool beepMode = false;                    // Whether or not beepMode is ON or OFF by default
@@ -53,23 +53,67 @@ struct PathDef                            //ignore
 
 static const PPPoint waypoints1[] PROGMEM = {
   {   0.0f,   0.0f },
-  {  50.0f,   0.0f },
-  {  50.0f,  50.0f },
+  {  75.0f,   0.0f },
+  {  75.0f, -100.0f },
+  {  25.0f, -100.0f },
+  {  25.0f, -50.0f },
 };
 
 static const PPPoint waypoints2[] PROGMEM = {
-  {  50.0f,  50.0f },
-  {  50.0f,   0.0f },
-  {   0.0f,   0.0f },
+  {  25.0f, -50.0f },
+  {  25.0f, -100.0f },
+  {  75.0f, -100.0f },
+  {  75.0f,   0.0f },
+  {  25.0f,   0.0f },
+};
+
+static const PPPoint waypoints3[] PROGMEM = {
+  {  25.0f,   0.0f },
+  {  75.0f,   0.0f },
+  {  75.0f,  50.0f },
+  {  25.0f,  50.0f },
+  {  25.0f, 100.0f },
+};
+
+static const PPPoint waypoints4[] PROGMEM = {
+  {  25.0f, 100.0f },
+  {  25.0f,  25.0f },
+};
+
+static const PPPoint waypoints5[] PROGMEM = {
+  {  25.0f,  25.0f },
+  {  25.0f,  50.0f },
+  { 125.0f,  50.0f },
+  { 125.0f, 100.0f },
+  { 175.0f, 100.0f },
+};
+
+static const PPPoint waypoints6[] PROGMEM = {
+  { 175.0f, 100.0f },
+  {  75.0f, 100.0f },
+  {  75.0f,   0.0f },
+  { 125.0f,   0.0f },
+};
+
+static const PPPoint waypoints7[] PROGMEM = {
+  { 125.0f,   0.0f },
+  {  75.0f,   0.0f },
+  {  75.0f,  50.0f },
+  { 175.0f,  50.0f },
 };
 
 static const PathDef paths[] = {
   { waypoints1, (int)(sizeof(waypoints1) / sizeof(waypoints1[0])), TRAVEL_FORWARD },
   { waypoints2, (int)(sizeof(waypoints2) / sizeof(waypoints2[0])), TRAVEL_REVERSE },
+  { waypoints3, (int)(sizeof(waypoints3) / sizeof(waypoints3[0])), TRAVEL_FORWARD },
+  { waypoints4, (int)(sizeof(waypoints4) / sizeof(waypoints4[0])), TRAVEL_REVERSE },
+  { waypoints5, (int)(sizeof(waypoints5) / sizeof(waypoints5[0])), TRAVEL_FORWARD },
+  { waypoints6, (int)(sizeof(waypoints6) / sizeof(waypoints6[0])), TRAVEL_REVERSE },
+  { waypoints7, (int)(sizeof(waypoints7) / sizeof(waypoints7[0])), TRAVEL_FORWARD },
 };
 
 const int NUM_PATHS = (int)(sizeof(paths) / sizeof(paths[0]));
-const int MAX_WAYPOINTS = 3;
+const int MAX_WAYPOINTS = 5;
 
 // ---------------------------
 // Main (DO NOT EDIT)
